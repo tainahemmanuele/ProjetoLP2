@@ -37,6 +37,7 @@ public class Usuario {
     	this.foto = "default";
     }
 	
+   
 	public String getNome() {
 		return nome;
 	}
