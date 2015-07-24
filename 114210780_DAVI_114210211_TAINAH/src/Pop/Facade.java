@@ -1,8 +1,10 @@
 package Pop;
 
+import Pop.Exceptions.InfoUsuarioException;
 import Pop.Exceptions.LoginException;
 import Pop.Exceptions.LogoutException;
 import Pop.Exceptions.UsuarioException;
+import Pop.Exceptions.PesquisaUsuarioException;
 import easyaccept.EasyAccept;
 
 public class Facade {
@@ -28,7 +30,7 @@ public class Facade {
 		return controller.getNome(email);
 	}
 	
-	public void login (String email, String senha) throws LoginException{
+	public void login (String email, String senha) throws LoginException, PesquisaUsuarioException{
 		controller.login(email, senha);
 	}
 	
@@ -36,10 +38,17 @@ public class Facade {
 	    controller.logout();
 	}
 	
-	public static void main(String[] args) throws UsuarioException {
+	public String getInfoUsuarioLogado(String email) throws InfoUsuarioException{
+		return controller.getInfoUsuarioLogado(email);
+	}
+	
+	public static void main(String[] args) throws UsuarioException, LoginException {
 		Facade facade = new Facade();
-		facade.cadastraUsuario("Tainah", "tainah@email.com", "21563", "19111995", "25689347", "foto");
-		System.out.println(facade.getNome("marina@email.com"));
+		//facade.cadastraUsuario("Tainah", "tainah@email.com", "21563", "19111995", "25689347", "foto");
+		//facade.login("tainah@email.com", "21563");
+
+		
+		//System.out.println(facade.getNome("marina@email.com"));
 		args = new String[] {"Pop.Facade", "diretorio_testes/use_case_1.txt"};
 	    EasyAccept.main(args);
 	}
