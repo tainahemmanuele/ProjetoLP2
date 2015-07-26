@@ -92,7 +92,7 @@ public class Usuario {
 	}
 	
 	public void atualizaTelefone(){
-		telefone = ler.nextLine();
+		atualiza = ler.nextLine();
 		ler.nextLine();
 		telefone = atualiza;
 	}

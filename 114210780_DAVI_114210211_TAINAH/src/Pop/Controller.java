@@ -144,6 +144,8 @@ public class Controller {
 	        if(info.equals("Data de Nascimento")){
 	        	usuario.atualizaDataNascimento();
 	        }
+	        
+	        
 	        if(info.equals("Telefone")){
 	        	usuario.atualizaTelefone();
 	        }
