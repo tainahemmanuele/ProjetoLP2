@@ -13,13 +13,14 @@ public class Facade {
 	public Facade(){
 		this.controller = new Controller();
 	}
+	
+	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento, String telefone, String imagem){
+		return controller.cadastraUsuario(nome, email, senha, dataNascimento, imagem,telefone);
+	}
 
+	
 	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento, String telefone){
 		return controller.cadastraUsuario(nome, email, senha, dataNascimento, telefone);
-	}
-	
-	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento, String telefone, String foto){
-		return controller.cadastraUsuario(nome, email, senha, dataNascimento, telefone, foto);
 	}
 	
 	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento){
@@ -38,8 +39,8 @@ public class Facade {
 	    controller.logout();
 	}
 	
-	public String getInfoUsuarioLogado(String email) throws InfoUsuarioException{
-		return controller.getInfoUsuarioLogado(email);
+	public String getInfoUsuarioLogado(String atributo) throws InfoUsuarioException{
+		return controller.getInfoUsuarioLogado(atributo);
 	}
 	
 	public static void main(String[] args) throws UsuarioException, LoginException {

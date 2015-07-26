@@ -8,36 +8,40 @@ public class Usuario {
     private String senha;
     private String dataNascimento;
     private String telefone;
-    private String foto;
+    private String imagem;
     
-    public Usuario(String nome, String email, String senha, String dataNascimento, String telefone){
+    public Usuario(String nome, String email, String senha, String dataNascimento, String imagem, String telefone){
     	this.nome = nome;
     	this.email = email;
     	this.senha = senha;
     	this.dataNascimento = dataNascimento;
     	this.telefone = telefone;
-    	this.foto = "default";
-    }
-    
-    public Usuario(String nome, String email, String senha, String dataNascimento, String telefone, String foto){
-    	this.nome = nome;
-    	this.email = email;
-    	this.senha = senha;
-    	this.dataNascimento = dataNascimento;
-    	this.telefone = telefone;
-    	this.foto = foto;
+    	this.imagem = imagem;
     }
 
-    public Usuario(String nome, String email, String senha, String dataNascimento){
+	public Usuario(String nome, String email, String senha, String dataNascimento, String imagem){
     	this.nome = nome;
     	this.email = email;
     	this.senha = senha;
     	this.dataNascimento = dataNascimento;
     	this.telefone = "default";
-    	this.foto = "default";
+    	this.imagem= imagem;
+    }
+    
+    public Usuario(String nome, String email, String senha, String dataNascimento){
+    	this.nome = nome;
+    	this.email = email;
+    	this.senha = senha;
+    	this.dataNascimento = dataNascimento;
+        this.telefone = "default";
+    	this.imagem = "default";
     }
 	
-   
+    
+    public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
+
 	public String getNome() {
 		return nome;
 	}
@@ -58,14 +62,18 @@ public class Usuario {
 		return telefone;
 	}
 
-	public String getFoto() {
-		return foto;
-	}
-    
-	@Override
-	public String toString() {
-		return getNome();
+	public String getImagem() {
+		return imagem;
 	}
 
+	@Override
+	public String toString() {
+		return "Usuario [getNome()=" + getNome() + ", getEmail()=" + getEmail()
+				+ ", getSenha()=" + getSenha() + ", getDataNascimento()="
+				+ getDataNascimento() + ", getTelefone()=" + getTelefone()
+				+ ", getImagem()=" + getImagem() + "]";
+	}
+    
+	
    
 }
