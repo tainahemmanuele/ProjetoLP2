@@ -1,6 +1,7 @@
 package Pop;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import Pop.Exceptions.InfoUsuarioException;
 import Pop.Exceptions.LoginException;
@@ -14,6 +15,7 @@ public class Controller {
 	private boolean retorno;
 	private boolean status;
 	private String nomeUsuario;
+
 	
 	public Controller(){
 		this.usuarios = new ArrayList<Usuario>();
@@ -116,6 +118,36 @@ public class Controller {
 	        	
 	      
 			return usuario.getEmail();
+	    	
+	    }
+	    
+	    public void atualizaInfo(String info){
+	    	if(status == true){
+	    		for(Usuario usuarioLogado: usuarios){
+	    			if (usuarioLogado.getEmail().equals(nomeUsuario)){
+	    				usuario = usuarioLogado;
+	    			}
+	    	}
+	    	}
+	    	if (info.equals("Nome")){
+	        	usuario.atualizaNome();
+	        }
+	        if (info.equals("Email")){
+	        	usuario.atualizaEmail();
+	        }
+	        if (info.equals("Senha")){
+	        	usuario.atualizaSenha();
+	        }
+	        if(info.equals("Foto")){
+	        	usuario.atualizaImagem();
+	        }
+	        if(info.equals("Data de Nascimento")){
+	        	usuario.atualizaDataNascimento();
+	        }
+	        if(info.equals("Telefone")){
+	        	usuario.atualizaTelefone();
+	        }
+	        	
 	    	
 	    }
 }

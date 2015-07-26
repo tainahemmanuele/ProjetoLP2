@@ -43,6 +43,10 @@ public class Facade {
 		return controller.getInfoUsuarioLogado(atributo);
 	}
 	
+	public void atualizaInfo(String info){
+		controller.atualizaInfo(info);
+	}
+	
 	public static void main(String[] args) throws UsuarioException, LoginException {
 		Facade facade = new Facade();
 		//facade.cadastraUsuario("Tainah", "tainah@email.com", "21563", "19111995", "25689347", "foto");

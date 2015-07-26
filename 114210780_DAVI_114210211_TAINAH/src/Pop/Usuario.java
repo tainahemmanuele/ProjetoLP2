@@ -1,6 +1,7 @@
 package Pop;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Usuario {
     private String nome;
@@ -9,6 +10,9 @@ public class Usuario {
     private String dataNascimento;
     private String telefone;
     private String imagem;
+    private String atualiza;
+    private String senhaAtual;
+	private Scanner ler = new Scanner(System.in);
     
     public Usuario(String nome, String email, String senha, String dataNascimento, String imagem, String telefone){
     	this.nome = nome;
@@ -38,9 +42,6 @@ public class Usuario {
     }
 	
     
-    public void setImagem(String imagem) {
-		this.imagem = imagem;
-	}
 
 	public String getNome() {
 		return nome;
@@ -65,7 +66,45 @@ public class Usuario {
 	public String getImagem() {
 		return imagem;
 	}
+	
+	public void atualizaNome(){
+		atualiza = ler.nextLine();
+		ler.nextLine();
+		nome = atualiza;
+	}
 
+	public void atualizaImagem(){
+		atualiza = ler.nextLine();
+		ler.nextLine();
+		imagem = atualiza;
+	}
+	
+	public void atualizaEmail(){
+		atualiza = ler.nextLine();
+		ler.nextLine();
+		email = atualiza;
+	}
+	
+	public void atualizaDataNascimento(){
+		atualiza = ler.nextLine();
+		ler.nextLine();
+		dataNascimento = atualiza;
+	}
+	
+	public void atualizaTelefone(){
+		telefone = ler.nextLine();
+		ler.nextLine();
+		telefone = atualiza;
+	}
+	
+	public void atualizaSenha(){
+		senhaAtual =  ler.nextLine();
+		ler.nextLine();
+		if (senhaAtual.equals(senha)){
+			atualiza = ler.nextLine();
+			senha = atualiza;
+		}
+	}
 	@Override
 	public String toString() {
 		return "Usuario [getNome()=" + getNome() + ", getEmail()=" + getEmail()
