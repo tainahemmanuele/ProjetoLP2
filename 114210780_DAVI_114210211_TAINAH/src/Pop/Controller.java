@@ -95,7 +95,7 @@ public class Controller {
 	    		}
 	    	}
 	    
-	    public String getInfoUsuarioLogado(String atributo) throws InfoUsuarioException{
+	    public String getUsuarioLogado(String atributo) throws InfoUsuarioException{
 	    	if(status == true){
 	    		for(Usuario usuarioLogado: usuarios){
 	    			if (usuarioLogado.getEmail().equals(nomeUsuario)){
@@ -121,6 +121,31 @@ public class Controller {
 	    	
 	    }
 	    
+	    public String getInfoUsuarioLogado(String atributo) throws InfoUsuarioException{
+	    	if(status == true){
+	    		for(Usuario usuarioLogado: usuarios){
+	    			if (usuarioLogado.getEmail().equals(nomeUsuario)){
+	    				usuario = usuarioLogado;
+	    			}
+	    	}
+	    	}
+	        if (atributo.equals("Nome")){
+	        	return usuario.getNome();
+	        }
+	        if (atributo.equals("Email")){
+	        	return usuario.getEmail();
+	        }
+	        if (atributo.equals("Senha")){
+	        	throw new InfoUsuarioException();
+	        }
+	        if(atributo.equals("Foto")){
+	        	return usuario.getImagem();
+	        }
+	        	
+	      
+			return usuario.getEmail();
+	    }
+	    		
 	    public void atualizaInfo(String info){
 	    	if(status == true){
 	    		for(Usuario usuarioLogado: usuarios){
