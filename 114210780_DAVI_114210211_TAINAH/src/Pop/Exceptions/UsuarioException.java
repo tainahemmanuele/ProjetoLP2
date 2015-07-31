@@ -7,7 +7,7 @@ public class UsuarioException extends Exception{
 	}
 
 	public UsuarioException() {
-		super("Usuario nao esta cadastrado no +Pop");
+		super("Usuarix nao esta cadastradx no +Pop");
 	}
 
 }

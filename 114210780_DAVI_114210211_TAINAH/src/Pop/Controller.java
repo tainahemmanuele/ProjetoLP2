@@ -15,20 +15,23 @@ public class Controller {
 	private boolean retorno;
 	private boolean status;
 	private String nomeUsuario;
+	private boolean statusSistema;
+	private boolean statusUsuario;
 
 	
 	public Controller(){
 		this.usuarios = new ArrayList<Usuario>();
 		this.retorno = false;
 		this.status = false;
+		this.statusSistema = false;
+		this.statusUsuario = false;
 	}
 
-	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento, String telefone, String imagem){
-		this.usuario= new Usuario(nome,email,senha,dataNascimento,telefone,imagem);
-		this.usuarios.add(this.usuario);
-		System.out.println(usuario.getImagem());
-		return usuario.getEmail();
-	} 
+	public void iniciaSistema(){
+		statusSistema = true;
+		
+	}
+
 	
 	
 	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento, String telefone){
@@ -55,7 +58,7 @@ public class Controller {
 			}
 		};
 		if (retorno == false){
-			throw new UsuarioException ("O usuario com email "+email + " nao esta cadastrado.");
+			throw new UsuarioException ("Um usuarix com email "+email + " nao esta cadastradx.");
 		}
 	   return email;
 			
@@ -69,11 +72,11 @@ public class Controller {
 	    			
 	    		}
 	    		if ((usuario.getEmail().equals(email)) && !(usuario.getSenha().equals(senha))){
-	    			throw new PesquisaUsuarioException("Nao foi possivel realizar login. Senha Invalida.");
+	    			throw new PesquisaUsuarioException("Nao foi possivel realizar login. Senha invalida.");
 	    		}
 	    	}
     		if (status == false){
-    			throw new PesquisaUsuarioException("Nao foi possivel realizar login. O usuario com email " + email+ " nao esta cadastrado.");
+    			throw new PesquisaUsuarioException("Nao foi possivel realizar login. Um usuarix com email " + email+ " nao esta cadastradx.");
     		}
 			return usuario.getEmail();
 	    }
@@ -83,7 +86,7 @@ public class Controller {
 	    	if (status == false){
 	           nomeUsuario = pesquisaUsuario(email, senha);
 	    	}else {
-	    		throw new LoginException ("Nao foi possivel realizar login. Um usuario ja esta logado: " +usuario.getNome() + "." );
+	    		throw new LoginException ("Nao foi possivel realizar login. Um usuarix ja esta logadx: " +usuario.getNome() + "." );
 	    	}
 	    }
 	    	
@@ -95,14 +98,14 @@ public class Controller {
 	    		}
 	    	}
 	    
-	    public String getUsuarioLogado(String atributo) throws InfoUsuarioException{
-	    	if(status == true){
-	    		for(Usuario usuarioLogado: usuarios){
-	    			if (usuarioLogado.getEmail().equals(nomeUsuario)){
-	    				usuario = usuarioLogado;
-	    			}
-	    	}
-	    	}
+	 
+	    
+	    public String getInfoUsuario(String atributo,String email) throws InfoUsuarioException{
+	       for(Usuario usuarioLogado: usuarios){
+	    		if (usuarioLogado.getEmail().equals(email)){
+	    			usuario = usuarioLogado;
+	    		}
+	       }
 	        if (atributo.equals("Nome")){
 	        	return usuario.getNome();
 	        }
@@ -115,37 +118,51 @@ public class Controller {
 	        if(atributo.equals("Foto")){
 	        	return usuario.getImagem();
 	        }
-	        	
-	      
+	        if(atributo.equals("Data de Nascimento")){
+	        	return usuario.getDataNascimento();
+	        }
+	        
 			return usuario.getEmail();
+	    }
 	    	
+	    public String getInfoUsuario(String atributo) throws InfoUsuarioException{
+	    	if (status ==true){
+    		for(Usuario usuarioLogado: usuarios){
+    			if (usuarioLogado.getEmail().equals(nomeUsuario)){
+    				usuario = usuarioLogado;
+
+    			}
+    		}
+    	}
+	    	
+        if (atributo.equals("Nome")){
+        	return usuario.getNome();
+        }
+        if (atributo.equals("Email")){
+        	return usuario.getEmail();
+        }
+        if (atributo.equals("Senha")){
+        	throw new InfoUsuarioException();
+        }
+        if(atributo.equals("Foto")){
+        	return usuario.getImagem();
+        }
+        if(atributo.equals("Data de Nascimento")){
+        	return usuario.getDataNascimento();
+        }	
+      
+		return usuario.getEmail();
+    }
+    	
+	    
+	    public void fechaSistema() throws InfoUsuarioException{
+	    	if(status == true){
+	    		throw new InfoUsuarioException("Nao foi possivel fechar o sistema. Um usuarix ainda esta logadx.");
+	    	}else{
+	    		statusSistema = false;
+	    	}
 	    }
 	    
-	    public String getInfoUsuarioLogado(String atributo) throws InfoUsuarioException{
-	    	if(status == true){
-	    		for(Usuario usuarioLogado: usuarios){
-	    			if (usuarioLogado.getEmail().equals(nomeUsuario)){
-	    				usuario = usuarioLogado;
-	    			}
-	    	}
-	    	}
-	        if (atributo.equals("Nome")){
-	        	return usuario.getNome();
-	        }
-	        if (atributo.equals("Email")){
-	        	return usuario.getEmail();
-	        }
-	        if (atributo.equals("Senha")){
-	        	throw new InfoUsuarioException();
-	        }
-	        if(atributo.equals("Foto")){
-	        	return usuario.getImagem();
-	        }
-	        	
-	      
-			return usuario.getEmail();
-	    }
-	    		
 	    public void atualizaInfo(String info){
 	    	if(status == true){
 	    		for(Usuario usuarioLogado: usuarios){

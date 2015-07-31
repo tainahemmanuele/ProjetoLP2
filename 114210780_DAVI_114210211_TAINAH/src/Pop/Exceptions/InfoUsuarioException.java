@@ -6,6 +6,6 @@ public class InfoUsuarioException extends PesquisaUsuarioException  {
 	}
 
 	public InfoUsuarioException() {
-		super("A senha do usuario eh protegida.");
+		super("A senha dx usuarix eh protegida.");
 	}
 }

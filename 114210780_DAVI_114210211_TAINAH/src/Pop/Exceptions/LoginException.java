@@ -7,6 +7,6 @@ public class LoginException extends Exception {
 	}
 
 	public LoginException () {
-		super("Nao foi possivel realizar login. Um usuario ja esta logado.");
+		super("Nao foi possivel realizar login. Um usuarix ja esta logadx.");
 	}
 }

@@ -7,6 +7,6 @@ public class LogoutException extends LoginException {
 	}
 
 	public LogoutException () {
-		super("Nao eh possivel realizar logout. Nenhum usuario esta logado no +pop.");
+		super("Nao eh possivel realizar logout. Nenhum usuarix esta logadx no +pop.");
 	}
 }

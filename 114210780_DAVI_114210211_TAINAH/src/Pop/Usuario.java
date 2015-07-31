@@ -14,31 +14,21 @@ public class Usuario {
     private String senhaAtual;
 	private Scanner ler = new Scanner(System.in);
     
-    public Usuario(String nome, String email, String senha, String dataNascimento, String imagem, String telefone){
+    public Usuario(String nome, String email, String senha, String dataNascimento, String imagem){
     	this.nome = nome;
     	this.email = email;
     	this.senha = senha;
-    	this.dataNascimento = dataNascimento;
-    	this.telefone = telefone;
     	this.imagem = imagem;
+    	this.dataNascimento = dataNascimento;
     }
 
-	public Usuario(String nome, String email, String senha, String dataNascimento, String imagem){
-    	this.nome = nome;
-    	this.email = email;
-    	this.senha = senha;
-    	this.dataNascimento = dataNascimento;
-    	this.telefone = "default";
-    	this.imagem= imagem;
-    }
-    
+
     public Usuario(String nome, String email, String senha, String dataNascimento){
     	this.nome = nome;
     	this.email = email;
     	this.senha = senha;
     	this.dataNascimento = dataNascimento;
-        this.telefone = "default";
-    	this.imagem = "default";
+    	this.imagem = "resources/default.jpg";
     }
 	
     

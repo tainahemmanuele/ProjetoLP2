@@ -14,11 +14,7 @@ public class Facade {
 		this.controller = new Controller();
 	}
 	
-	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento, String telefone, String imagem){
-		return controller.cadastraUsuario(nome, email, senha, dataNascimento, imagem,telefone);
-	}
 
-	
 	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento, String telefone){
 		return controller.cadastraUsuario(nome, email, senha, dataNascimento, telefone);
 	}
@@ -39,17 +35,27 @@ public class Facade {
 	    controller.logout();
 	}
 	
-	public String getUsuarioLogado(String atributo) throws InfoUsuarioException{
-		return controller.getUsuarioLogado(atributo);
-	}
 	
 	public void atualizaInfo(String info){
 		controller.atualizaInfo(info);
 	}
 	
-	public String getInfoUsuarioLogado(String atributo) throws InfoUsuarioException{
-		return controller.getInfoUsuarioLogado(atributo);
+	public String getInfoUsuario(String atributo,String email) throws InfoUsuarioException{
+		return controller.getInfoUsuario(atributo,email);
 	}
+	
+	public String getInfoUsuario(String atributo) throws InfoUsuarioException{
+		return controller.getInfoUsuario(atributo);
+	}
+	
+	public void iniciaSistema(){
+		controller.iniciaSistema();
+	}
+	
+	public void fechaSistema() throws InfoUsuarioException{
+		controller.fechaSistema();
+	}
+	
 	public static void main(String[] args) throws UsuarioException, LoginException {
 		Facade facade = new Facade();
 		//facade.cadastraUsuario("Tainah", "tainah@email.com", "21563", "19111995", "25689347", "foto");
@@ -57,7 +63,7 @@ public class Facade {
 
 		
 		//System.out.println(facade.getNome("marina@email.com"));
-		args = new String[] {"Pop.Facade", "diretorio_testes/use_case_1.txt"};
+		args = new String[] {"Pop.Facade", "diretorio_testes/usecase_1.txt"};
 	    EasyAccept.main(args);
 	}
 }
