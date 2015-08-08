@@ -1,5 +1,6 @@
 package Pop;
 
+import Pop.Exceptions.CadastroUsuarioException;
 import Pop.Exceptions.InfoUsuarioException;
 import Pop.Exceptions.LoginException;
 import Pop.Exceptions.LogoutException;
@@ -15,11 +16,11 @@ public class Facade {
 	}
 	
 
-	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento, String telefone){
+	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento, String telefone) throws CadastroUsuarioException{
 		return controller.cadastraUsuario(nome, email, senha, dataNascimento, telefone);
 	}
 	
-	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento){
+	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento) throws CadastroUsuarioException{
 		return controller.cadastraUsuario(nome, email, senha, dataNascimento);
 	}
 	
@@ -46,6 +47,10 @@ public class Facade {
 	
 	public String getInfoUsuario(String atributo) throws InfoUsuarioException{
 		return controller.getInfoUsuario(atributo);
+	}
+	
+	public void removeUsuario(String email) throws UsuarioException{
+		controller.removeUsuario(email);
 	}
 	
 	public void iniciaSistema(){

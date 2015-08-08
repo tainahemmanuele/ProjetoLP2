@@ -3,6 +3,7 @@ package Pop;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import Pop.Exceptions.CadastroUsuarioException;
 import Pop.Exceptions.InfoUsuarioException;
 import Pop.Exceptions.LoginException;
 import Pop.Exceptions.LogoutException;
@@ -34,14 +35,14 @@ public class Controller {
 
 	
 	
-	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento, String telefone){
+	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento, String telefone) throws CadastroUsuarioException{
 		this.usuario = new Usuario(nome,email,senha,dataNascimento,telefone);
 		this.usuarios.add(this.usuario);
 		return usuario.getEmail();
 	}
 	
 	
-	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento){
+	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento) throws CadastroUsuarioException{
 		this.usuario= new Usuario(nome,email,senha,dataNascimento);
 		this.usuarios.add(this.usuario);
 		return usuario.getEmail();
@@ -56,7 +57,7 @@ public class Controller {
 			else{
 				retorno = false;
 			}
-		};
+		}
 		if (retorno == false){
 			throw new UsuarioException ("Um usuarix com email "+email + " nao esta cadastradx.");
 		}
@@ -100,10 +101,13 @@ public class Controller {
 	    
 	 
 	    
-	    public String getInfoUsuario(String atributo,String email) throws InfoUsuarioException{
+	    public String getInfoUsuario(String atributo, String email) throws InfoUsuarioException{
 	       for(Usuario usuarioLogado: usuarios){
 	    		if (usuarioLogado.getEmail().equals(email)){
+	    			statusUsuario = true;
 	    			usuario = usuarioLogado;
+	    		}else{
+	    			statusUsuario = false;
 	    		}
 	       }
 	        if (atributo.equals("Nome")){
@@ -121,9 +125,14 @@ public class Controller {
 	        if(atributo.equals("Data de Nascimento")){
 	        	return usuario.getDataNascimento();
 	        }
-	        
-			return usuario.getEmail();
+	        if (statusUsuario == false){
+			    throw new InfoUsuarioException ("Um usuarix com email "+email + " nao esta cadastradx.");
+			   }
+		return usuario.getEmail();
+		
 	    }
+	    
+	    
 	    	
 	    public String getInfoUsuario(String atributo) throws InfoUsuarioException{
 	    	if (status ==true){
@@ -133,8 +142,7 @@ public class Controller {
 
     			}
     		}
-    	}
-	    	
+	    	}
         if (atributo.equals("Nome")){
         	return usuario.getNome();
         }
@@ -160,6 +168,21 @@ public class Controller {
 	    		throw new InfoUsuarioException("Nao foi possivel fechar o sistema. Um usuarix ainda esta logadx.");
 	    	}else{
 	    		statusSistema = false;
+	    	}
+	    }
+	    
+	    public void removeUsuario(String email)throws UsuarioException{
+	    	if (status == false){
+	    		for(Usuario usuarioLogado:usuarios){
+	    			if(usuarioLogado.getEmail().equals(email)){
+	    				usuario = usuarioLogado;
+	    				usuarios.remove(usuario);
+	    				statusUsuario = true;
+	    			}
+	    		}
+	    		if(statusUsuario == false){
+	    			throw new UsuarioException("Um usuarix com email "+ email +"nao esta cadastradx.");
+	    		}
 	    	}
 	    }
 	    
