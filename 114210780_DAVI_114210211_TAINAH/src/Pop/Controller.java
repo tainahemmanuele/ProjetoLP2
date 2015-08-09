@@ -1,5 +1,6 @@
 package Pop;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -35,17 +36,18 @@ public class Controller {
 
 	
 	
-	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento, String telefone) throws CadastroUsuarioException{
+	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento, String telefone) throws CadastroUsuarioException, ParseException{
 		this.usuario = new Usuario(nome,email,senha,dataNascimento,telefone);
 		this.usuarios.add(this.usuario);
 		return usuario.getEmail();
 	}
 	
 	
-	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento) throws CadastroUsuarioException{
+	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento) throws CadastroUsuarioException, ParseException {
 		this.usuario= new Usuario(nome,email,senha,dataNascimento);
 		this.usuarios.add(this.usuario);
 		return usuario.getEmail();
+		
 	}
 	
 	public String getNome(String email) throws UsuarioException {

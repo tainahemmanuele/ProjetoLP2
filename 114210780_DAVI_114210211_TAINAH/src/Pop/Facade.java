@@ -1,5 +1,7 @@
 package Pop;
 
+import java.text.ParseException;
+
 import Pop.Exceptions.CadastroUsuarioException;
 import Pop.Exceptions.InfoUsuarioException;
 import Pop.Exceptions.LoginException;
@@ -16,11 +18,11 @@ public class Facade {
 	}
 	
 
-	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento, String telefone) throws CadastroUsuarioException{
+	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento, String telefone) throws CadastroUsuarioException, ParseException{
 		return controller.cadastraUsuario(nome, email, senha, dataNascimento, telefone);
 	}
 	
-	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento) throws CadastroUsuarioException{
+	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento) throws CadastroUsuarioException, ParseException{
 		return controller.cadastraUsuario(nome, email, senha, dataNascimento);
 	}
 	
