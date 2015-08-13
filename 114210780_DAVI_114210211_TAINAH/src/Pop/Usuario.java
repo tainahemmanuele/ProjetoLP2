@@ -1,8 +1,10 @@
 package Pop;
 
-import java.text.DateFormat;
+
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -10,6 +12,8 @@ import java.util.Scanner;
 
 import Pop.Exceptions.CadastroUsuarioException;
 import Pop.Exceptions.DataException;
+import Pop.Exceptions.InfoUsuarioException;
+import Pop.Exceptions.UsuarioException;
 import Pop.Exceptions.ValidaException;
 
 public class Usuario {
@@ -21,12 +25,13 @@ public class Usuario {
     private String imagem;
     private String atualiza;
     private String senhaAtual;
-    DateFormat data1 = new SimpleDateFormat("dd/MM/yyyy");
-    DateFormat data2 = new SimpleDateFormat("yyyy-MM-dd");
+    SimpleDateFormat data1 = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat data2 = new SimpleDateFormat("yyyy-MM-dd");
 	private Scanner ler = new Scanner(System.in);
 	private boolean statusData = false;
+
     
-    public Usuario(String nome, String email, String senha, String dataNascimento, String imagem) throws CadastroUsuarioException, ParseException{
+    public Usuario(String nome, String email, String senha, String dataNascimento, String imagem) throws Exception{
     	if(nome.equals("")){
     		throw new CadastroUsuarioException("Erro no cadastro de Usuarios. Nome dx usuarix nao pode ser vazio.");
     	}else if(nome.startsWith(" ")){
@@ -55,7 +60,7 @@ public class Usuario {
     }
 
 
-    public Usuario(String nome, String email, String senha, String dataNascimento) throws CadastroUsuarioException, ParseException {
+    public Usuario(String nome, String email, String senha, String dataNascimento) throws Exception {
     	if(nome.equals("")){
     		throw new CadastroUsuarioException("Erro no cadastro de Usuarios. Nome dx usuarix nao pode ser vazio.");
     	}else if(nome.startsWith(" ")){
@@ -63,8 +68,7 @@ public class Usuario {
     	}else{
         	this.nome = nome;
     	}
-    	
-    	validaData(dataNascimento);
+
     	this.dataNascimento = converteData(dataNascimento);
     	
     	if((email.endsWith(".com")== true) && (email.endsWith(".com.br")==false)){
@@ -96,7 +100,28 @@ public class Usuario {
     	
     }
 	
-    
+  
+    public String converteData(String dataNascimento) throws ParseException {
+	 try{
+	    data1.setLenient(false);
+		data1.parse(dataNascimento);
+		validaData(dataNascimento);
+	} catch (Exception e){  
+	       throw new DataException("Erro no cadastro de Usuarios. Formato de data esta invalida.", 2);
+	    }  
+	return data2.format(data1.parse(dataNascimento));	
+}
+
+public String validaData(String dataNascimento) throws ParseException{
+	try {  
+	    Calendar dataValida = Calendar.getInstance();
+	    dataValida.setLenient(false);
+		dataValida.setTime(data1.parse(dataNascimento));
+     } catch (ParseException e){  
+         throw new DataException("Erro no cadastro de Usuarios. Data nao existe.",1);
+        }
+	return dataNascimento;
+}
 
 	public String getNome() {
 		return nome;
@@ -123,67 +148,38 @@ public class Usuario {
 	}
 	
 	
-	public String converteData(String dataNascimento) throws ParseException {
-		Date data;
-		 try{
-		     data1.setLenient(false);
-			 data = data1.parse(dataNascimento); 
-
-		} catch (ParseException e){  
-		  
-		       throw new DataException("Erro no cadastro de Usuarios. Formato de data esta invalida.", 2);
-		    }  
-		return data2.format(data);	
-	}
 	
-	public String validaData(String dataNascimento) throws ParseException{
-		try {  
-		    Calendar dataValida = Calendar.getInstance();
-			dataValida.setTime(data1.parse(dataNascimento));
-	     } catch (ParseException e){  
-	         throw new ValidaException("Erro no cadastro de Usuarios. Data nao existe.",1);
-	        }
-		return dataNascimento;
-	}
 		
-	
-	
-	public void atualizaNome(){
-		atualiza = ler.nextLine();
-		ler.nextLine();
-		nome = atualiza;
+
+
+	public void atualizaNome(String nome){
+
+		this.nome = nome;
 	}
 
-	public void atualizaImagem(){
-		atualiza = ler.nextLine();
-		ler.nextLine();
-		imagem = atualiza;
+	public void atualizaImagem(String imagem){
+
+		this.imagem = imagem;
 	}
 	
-	public void atualizaEmail(){
-		atualiza = ler.nextLine();
-		ler.nextLine();
-		email = atualiza;
+	public void atualizaEmail(String email){
+
+		this.email= email;
 	}
 	
-	public void atualizaDataNascimento(){
-		atualiza = ler.nextLine();
-		ler.nextLine();
-		dataNascimento = atualiza;
+	public void atualizaDataNascimento(String dataNascimento){
+		this.dataNascimento = dataNascimento;
 	}
 	
-	public void atualizaTelefone(){
-		atualiza = ler.nextLine();
-		ler.nextLine();
-		telefone = atualiza;
+	public void atualizaTelefone(String telefone){
+		this.telefone = telefone;
 	}
 	
-	public void atualizaSenha(){
-		senhaAtual =  ler.nextLine();
-		ler.nextLine();
+	public void atualizaSenha(String senhaNova,String senhaAtual) throws InfoUsuarioException{
 		if (senhaAtual.equals(senha)){
-			atualiza = ler.nextLine();
-			senha = atualiza;
+			senha = senhaNova;
+		}else {
+			throw new InfoUsuarioException("Erro na atualizacao de perfil. A senha fornecida esta incorreta.");
 		}
 	}
 	

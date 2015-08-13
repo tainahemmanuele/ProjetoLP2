@@ -1,15 +1,21 @@
 package Pop;
 
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Scanner;
 
 import Pop.Exceptions.CadastroUsuarioException;
+import Pop.Exceptions.DataException;
 import Pop.Exceptions.InfoUsuarioException;
 import Pop.Exceptions.LoginException;
 import Pop.Exceptions.LogoutException;
 import Pop.Exceptions.UsuarioException;
 import Pop.Exceptions.PesquisaUsuarioException;
+import Pop.Exceptions.ValidaException;
 
 public class Controller {
 	private Usuario usuario;
@@ -19,6 +25,8 @@ public class Controller {
 	private String nomeUsuario;
 	private boolean statusSistema;
 	private boolean statusUsuario;
+	private String data;
+
 
 	
 	public Controller(){
@@ -36,20 +44,45 @@ public class Controller {
 
 	
 	
-	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento, String telefone) throws CadastroUsuarioException, ParseException{
-		this.usuario = new Usuario(nome,email,senha,dataNascimento,telefone);
+	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento, String imagem) throws Exception{
+		this.usuario = new Usuario(nome,email,senha,dataNascimento,imagem);
 		this.usuarios.add(this.usuario);
 		return usuario.getEmail();
 	}
 	
 	
-	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento) throws CadastroUsuarioException, ParseException {
+	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento) throws Exception {
 		this.usuario= new Usuario(nome,email,senha,dataNascimento);
 		this.usuarios.add(this.usuario);
 		return usuario.getEmail();
 		
 	}
 	
+	
+	
+	/*public String converteData(String dataNascimento) throws ParseException {
+		Date data;
+		 try{
+		     data1.setLenient(false);
+			 data = data1.parse(dataNascimento); 
+		} catch (ParseException e){  
+		  
+		       throw new DataException("Erro no cadastro de Usuarios. Formato de data esta invalida.", 2);
+		    }  
+		return data2.format(data);	
+	}
+	
+	public String validaData(String dataNascimento) throws ParseException{
+		try {  
+		    Calendar dataValida = Calendar.getInstance();
+		    dataValida.setLenient(false);
+			dataValida.setTime(data1.parse(dataNascimento));
+	     } catch (ParseException e){  
+	         throw new DataException("Erro no cadastro de Usuarios. Data nao existe.",1);
+	        }
+		return dataNascimento;
+	}*/
+		
 	public String getNome(String email) throws UsuarioException {
 		for(Usuario usuario: usuarios){
 			if (usuario.getEmail().equals(email)){
@@ -141,7 +174,6 @@ public class Controller {
     		for(Usuario usuarioLogado: usuarios){
     			if (usuarioLogado.getEmail().equals(nomeUsuario)){
     				usuario = usuarioLogado;
-
     			}
     		}
 	    	}
@@ -188,7 +220,37 @@ public class Controller {
 	    	}
 	    }
 	    
-	    public void atualizaInfo(String info){
+	    public void atualizaPerfil(String atributo,String valor){
+	    	if(status == true){
+	    		for(Usuario usuarioLogado: usuarios){
+	    			System.out.println(usuarioLogado.getEmail());
+	    			if (usuarioLogado.getEmail().equals(nomeUsuario)){
+	    				usuario = usuarioLogado;
+	    			}
+	    	}
+	    	}
+	    	if (atributo.equals("Nome")){
+	        	usuario.atualizaNome(valor);
+	        }
+	        if (atributo.equals("Email")){
+	        	usuario.atualizaEmail(valor);
+	        }
+	        if(atributo.equals("Foto")){
+	        	usuario.atualizaImagem(valor);
+	        }
+	        if(atributo.equals("Data de Nascimento")){
+	        	usuario.atualizaDataNascimento(valor);
+	        }
+	        
+	        
+	        if(atributo.equals("Telefone")){
+	        	usuario.atualizaTelefone(valor);
+	        }
+	        	
+	    	
+	    }
+	    
+	    public void atualizaPerfil(String atributo,String valor,String valor2) throws InfoUsuarioException{
 	    	if(status == true){
 	    		for(Usuario usuarioLogado: usuarios){
 	    			if (usuarioLogado.getEmail().equals(nomeUsuario)){
@@ -196,27 +258,9 @@ public class Controller {
 	    			}
 	    	}
 	    	}
-	    	if (info.equals("Nome")){
-	        	usuario.atualizaNome();
+	        if (atributo.equals("Senha")){
+	        	usuario.atualizaSenha(valor,valor2);
 	        }
-	        if (info.equals("Email")){
-	        	usuario.atualizaEmail();
-	        }
-	        if (info.equals("Senha")){
-	        	usuario.atualizaSenha();
-	        }
-	        if(info.equals("Foto")){
-	        	usuario.atualizaImagem();
-	        }
-	        if(info.equals("Data de Nascimento")){
-	        	usuario.atualizaDataNascimento();
-	        }
-	        
-	        
-	        if(info.equals("Telefone")){
-	        	usuario.atualizaTelefone();
-	        }
-	        	
 	    	
 	    }
 }

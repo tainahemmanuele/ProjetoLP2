@@ -9,4 +9,7 @@ public class ValidaException extends ParseException{
 		// TODO Auto-generated constructor stub
 	}
 
+	public ValidaException() {
+		super("Erro no cadastro de Usuarios. Data nao existe.", 0);
+	}
 }

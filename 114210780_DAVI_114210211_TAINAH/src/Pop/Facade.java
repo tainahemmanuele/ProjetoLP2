@@ -18,11 +18,11 @@ public class Facade {
 	}
 	
 
-	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento, String telefone) throws CadastroUsuarioException, ParseException{
+	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento, String telefone) throws Exception{
 		return controller.cadastraUsuario(nome, email, senha, dataNascimento, telefone);
 	}
 	
-	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento) throws CadastroUsuarioException, ParseException{
+	public String cadastraUsuario(String nome, String email, String senha, String dataNascimento) throws Exception{
 		return controller.cadastraUsuario(nome, email, senha, dataNascimento);
 	}
 	
@@ -39,10 +39,13 @@ public class Facade {
 	}
 	
 	
-	public void atualizaInfo(String info){
-		controller.atualizaInfo(info);
+	public void atualizaPerfil(String atributo,String valor){
+		controller.atualizaPerfil(atributo, valor);
 	}
 	
+	public void atualizaPerfil(String atributo,String valor,String valor2) throws InfoUsuarioException{
+		controller.atualizaPerfil(atributo, valor, valor2);
+	}
 	public String getInfoUsuario(String atributo,String email) throws InfoUsuarioException{
 		return controller.getInfoUsuario(atributo,email);
 	}
@@ -72,5 +75,6 @@ public class Facade {
 		//System.out.println(facade.getNome("marina@email.com"));
 		args = new String[] {"Pop.Facade", "diretorio_testes/usecase_1.txt"};
 	    EasyAccept.main(args);
+
 	}
 }
