@@ -57,31 +57,7 @@ public class Controller {
 		return usuario.getEmail();
 		
 	}
-	
-	
-	
-	/*public String converteData(String dataNascimento) throws ParseException {
-		Date data;
-		 try{
-		     data1.setLenient(false);
-			 data = data1.parse(dataNascimento); 
-		} catch (ParseException e){  
-		  
-		       throw new DataException("Erro no cadastro de Usuarios. Formato de data esta invalida.", 2);
-		    }  
-		return data2.format(data);	
-	}
-	
-	public String validaData(String dataNascimento) throws ParseException{
-		try {  
-		    Calendar dataValida = Calendar.getInstance();
-		    dataValida.setLenient(false);
-			dataValida.setTime(data1.parse(dataNascimento));
-	     } catch (ParseException e){  
-	         throw new DataException("Erro no cadastro de Usuarios. Data nao existe.",1);
-	        }
-		return dataNascimento;
-	}*/
+
 		
 	public String getNome(String email) throws UsuarioException {
 		for(Usuario usuario: usuarios){
@@ -137,38 +113,33 @@ public class Controller {
 	 
 	    
 	    public String getInfoUsuario(String atributo, String email) throws InfoUsuarioException{
-	       for(Usuario usuarioLogado: usuarios){
-	    		if (usuarioLogado.getEmail().equals(email)){
-	    			statusUsuario = true;
+	    	for(Usuario usuarioLogado : usuarios){
+	    		if(usuarioLogado.getEmail().equals(email)){
 	    			usuario = usuarioLogado;
-	    		}else{
-	    			statusUsuario = false;
-	    		}
-	       }
-	        if (atributo.equals("Nome")){
-	        	return usuario.getNome();
-	        }
-	        if (atributo.equals("Email")){
-	        	return usuario.getEmail();
-	        }
-	        if (atributo.equals("Senha")){
-	        	throw new InfoUsuarioException();
-	        }
-	        if(atributo.equals("Foto")){
-	        	return usuario.getImagem();
-	        }
-	        if(atributo.equals("Data de Nascimento")){
-	        	return usuario.getDataNascimento();
-	        }
-	        if (statusUsuario == false){
-			    throw new InfoUsuarioException ("Um usuarix com email "+email + " nao esta cadastradx.");
-			   }
-		return usuario.getEmail();
-		
+	    			if (atributo.equals("Nome")){
+		            	return usuario.getNome();
+		            }
+		            if (atributo.equals("Email")){
+		            	return usuario.getEmail();
+		            }
+		            if (atributo.equals("Senha")){
+		            	throw new InfoUsuarioException();
+		            }
+		            if(atributo.equals("Foto")){
+		            	return usuario.getImagem();
+		            }
+		            if(atributo.equals("Data de Nascimento")){
+		            	return usuario.getDataNascimento();
+		            }	
+	    	}
+	    	}
+	    		
+	    	 throw new InfoUsuarioException("Um usuarix com email " + email + " nao esta cadastradx.");	
+	
+
 	    }
-	    
-	    
-	    	
+	   
+
 	    public String getInfoUsuario(String atributo) throws InfoUsuarioException{
 	    	if (status ==true){
     		for(Usuario usuarioLogado: usuarios){
@@ -243,7 +214,7 @@ public class Controller {
 	        }
 	        
 	        
-	        if(atributo.equals("Telefone")){
+	        if (atributo.equals("Telefone")){
 	        	usuario.atualizaTelefone(valor);
 	        }
 	        	

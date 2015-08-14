@@ -81,41 +81,31 @@ public class Usuario {
     	}
 
     	this.senha = senha;
-    	
-    	
-
-			/*try {
-				data = data1.parse(dataNascimento);
-				this.dataNascimento = data2.format(data);
-			} catch (ParseException e) {
-				throw new DataException("Erro no cadastro de Usuarios. Formato de data esta invalida.", 1);
-			}
-			
-
-				Calendar dataValida = Calendar.getInstance();
-				dataValida.setTime(data);*/
-
 
     	this.imagem = "resources/default.jpg";
     	
     }
 	
   
-    public String converteData(String dataNascimento) throws ParseException {
-	 try{
-	    data1.setLenient(false);
+   public String converteData(String dataNascimento) throws ParseException {
+	    data1.setLenient(true);
 		data1.parse(dataNascimento);
-		validaData(dataNascimento);
-	} catch (Exception e){  
-	       throw new DataException("Erro no cadastro de Usuarios. Formato de data esta invalida.", 2);
-	    }  
+		String[] s =dataNascimento.split("/");
+		if ((s[0].length() == 2) && (s[1].length() == 2) && (s[2].length() == 4)){
+			validaData(dataNascimento);
+		}else{
+			throw new DataException("Erro no cadastro de Usuarios. Formato de data esta invalida.", 2);
+		}
+	
+
 	return data2.format(data1.parse(dataNascimento));	
 }
 
 public String validaData(String dataNascimento) throws ParseException{
 	try {  
 	    Calendar dataValida = Calendar.getInstance();
-	    dataValida.setLenient(false);
+	    dataValida.setLenient(true);
+	    data1.setLenient(false);
 		dataValida.setTime(data1.parse(dataNascimento));
      } catch (ParseException e){  
          throw new DataException("Erro no cadastro de Usuarios. Data nao existe.",1);
