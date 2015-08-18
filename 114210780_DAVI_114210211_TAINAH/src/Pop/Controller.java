@@ -194,7 +194,6 @@ public class Controller {
 	    public void atualizaPerfil(String atributo,String valor){
 	    	if(status == true){
 	    		for(Usuario usuarioLogado: usuarios){
-	    			System.out.println(usuarioLogado.getEmail());
 	    			if (usuarioLogado.getEmail().equals(nomeUsuario)){
 	    				usuario = usuarioLogado;
 	    			}

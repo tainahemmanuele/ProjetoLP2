@@ -73,7 +73,7 @@ public class Facade {
 
 		
 		//System.out.println(facade.getNome("marina@email.com"));
-		args = new String[] {"Pop.Facade", "diretorio_testes/usecase_1.txt"};
+		args = new String[] {"Pop.Facade", "diretorio_testes/usecase_1.txt","diretorio_testes/usecase_2.txt"};
 	    EasyAccept.main(args);
 
 	}
