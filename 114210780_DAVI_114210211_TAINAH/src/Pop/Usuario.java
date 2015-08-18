@@ -10,6 +10,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
+import Pop.Exceptions.AtualizaUsuarioException;
 import Pop.Exceptions.CadastroUsuarioException;
 import Pop.Exceptions.DataException;
 import Pop.Exceptions.InfoUsuarioException;
@@ -142,9 +143,14 @@ public String validaData(String dataNascimento) throws ParseException{
 		
 
 
-	public void atualizaNome(String nome){
-
-		this.nome = nome;
+	public void atualizaNome(String nome) throws AtualizaUsuarioException{
+		if(nome.equals("")){
+    		throw new AtualizaUsuarioException("Erro na atualizacao de perfil. Nome dx usuarix nao pode ser vazio.");
+    	}else if(nome.startsWith(" ")){
+    		throw new AtualizaUsuarioException("Erro na atualizacao de perfil. Nome dx usuarix nao pode ser vazio." );
+    	}else{
+        	this.nome = nome;
+    	}
 	}
 
 	public void atualizaImagem(String imagem){
@@ -152,13 +158,23 @@ public String validaData(String dataNascimento) throws ParseException{
 		this.imagem = imagem;
 	}
 	
-	public void atualizaEmail(String email){
-
-		this.email= email;
+	public void atualizaEmail(String email) throws AtualizaUsuarioException{
+		if((email.endsWith(".com")== true) && (email.endsWith(".com.br")==false)){
+    		this.email = email;
+    	}
+    	else if((email.endsWith(".com")== false) && (email.endsWith(".com.br")==true)){
+    		this.email = email;
+    	}
+    		else if((email.endsWith("@")== true)){
+    			this.email = email;
+    	
+    	}else{
+    		throw new AtualizaUsuarioException("Erro na atualizacao de perfil. Formato de e-mail esta invalido");
+    	}
 	}
 	
-	public void atualizaDataNascimento(String dataNascimento){
-		this.dataNascimento = dataNascimento;
+	public void atualizaDataNascimento(String dataNascimento) throws ParseException{
+		this.dataNascimento = converteDataAtualizacao(dataNascimento);
 	}
 	
 	public void atualizaTelefone(String telefone){
@@ -173,7 +189,31 @@ public String validaData(String dataNascimento) throws ParseException{
 		}
 	}
 	
-	
+	 public String converteDataAtualizacao(String dataNascimento) throws ParseException {
+		    data1.setLenient(true);
+			data1.parse(dataNascimento);
+			String[] s =dataNascimento.split("/");
+			if ((s[0].length() == 2) && (s[1].length() == 2) && (s[2].length() == 4)){
+				validaDataAtualizacao(dataNascimento);
+			}else{
+				throw new DataException("Erro na atualizacao de perfil. Formato de data esta invalida.", 2);
+			}
+		
+
+		return data2.format(data1.parse(dataNascimento));	
+	}
+
+	public String validaDataAtualizacao(String dataNascimento) throws ParseException{
+		try {  
+		    Calendar dataValida = Calendar.getInstance();
+		    dataValida.setLenient(true);
+		    data1.setLenient(false);
+			dataValida.setTime(data1.parse(dataNascimento));
+	     } catch (ParseException e){  
+	         throw new DataException("Erro na atualizacao de perfil. Data nao existe.",1);
+	        }
+		return dataNascimento;
+	}
 	@Override
 	public String toString() {
 		return "Usuario [getNome()=" + getNome() + ", getEmail()=" + getEmail()

@@ -2,6 +2,7 @@ package Pop;
 
 import java.text.ParseException;
 
+import Pop.Exceptions.AtualizaUsuarioException;
 import Pop.Exceptions.CadastroUsuarioException;
 import Pop.Exceptions.InfoUsuarioException;
 import Pop.Exceptions.LoginException;
@@ -39,7 +40,7 @@ public class Facade {
 	}
 	
 	
-	public void atualizaPerfil(String atributo,String valor){
+	public void atualizaPerfil(String atributo,String valor) throws ParseException, AtualizaUsuarioException{
 		controller.atualizaPerfil(atributo, valor);
 	}
 	

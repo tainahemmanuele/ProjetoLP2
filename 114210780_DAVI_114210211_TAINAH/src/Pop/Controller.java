@@ -8,6 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
+import Pop.Exceptions.AtualizaUsuarioException;
 import Pop.Exceptions.CadastroUsuarioException;
 import Pop.Exceptions.DataException;
 import Pop.Exceptions.InfoUsuarioException;
@@ -191,13 +192,16 @@ public class Controller {
 	    	}
 	    }
 	    
-	    public void atualizaPerfil(String atributo,String valor){
+	    public void atualizaPerfil(String atributo,String valor) throws ParseException, AtualizaUsuarioException{
 	    	if(status == true){
 	    		for(Usuario usuarioLogado: usuarios){
 	    			if (usuarioLogado.getEmail().equals(nomeUsuario)){
 	    				usuario = usuarioLogado;
 	    			}
 	    	}
+	    	}
+	    	if (status == false){
+	    		throw new AtualizaUsuarioException("Nao eh possivel atualizar um perfil. Nenhum usuarix esta logadx no +pop.");
 	    	}
 	    	if (atributo.equals("Nome")){
 	        	usuario.atualizaNome(valor);
