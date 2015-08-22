@@ -55,9 +55,6 @@ public class Usuario {
     	this.senha = senha;
     	this.imagem = imagem;
     	
-		
-    	
-    	
     }
 
 
@@ -72,12 +69,14 @@ public class Usuario {
 
     	this.dataNascimento = converteData(dataNascimento);
     	
-    	if((email.endsWith(".com")== true) && (email.endsWith(".com.br")==false)){
+    	if((email.endsWith(".com")== true) && (email.endsWith(".com.br")==false) && (email.matches("(.*)@(.*)")) == true){
     		this.email = email;
     	}
-    	else if((email.endsWith(".com")== false) && (email.endsWith(".com.br")==true)){
+    	else if ((email.endsWith(".com")== false) && (email.endsWith(".com.br")==true)&& (email.matches("(.*)@(.*)")) == true){
     		this.email = email;
-    	}else{
+    	//}else if((email.matches("(.*)@(.*)")) == true){
+     	   //this.email = email;
+       	}else{
     		throw new CadastroUsuarioException("Erro no cadastro de Usuarios. Formato de e-mail esta invalido.");
     	}
 
@@ -139,10 +138,6 @@ public String validaData(String dataNascimento) throws ParseException{
 	}
 	
 	
-	
-		
-
-
 	public void atualizaNome(String nome) throws AtualizaUsuarioException{
 		if(nome.equals("")){
     		throw new AtualizaUsuarioException("Erro na atualizacao de perfil. Nome dx usuarix nao pode ser vazio.");
@@ -154,22 +149,19 @@ public String validaData(String dataNascimento) throws ParseException{
 	}
 
 	public void atualizaImagem(String imagem){
-
 		this.imagem = imagem;
 	}
 	
 	public void atualizaEmail(String email) throws AtualizaUsuarioException{
-		if((email.endsWith(".com")== true) && (email.endsWith(".com.br")==false)){
+		if((email.endsWith(".com")== true) && (email.endsWith(".com.br")==false) && (email.matches("(.*)@(.*)")) == true){
+    		this.email = email;
+    		System.out.println(email);
+    	}
+		else if((email.endsWith(".com")== false) && (email.endsWith(".com.br")==true) && (email.matches("(.*)@(.*)")) == true){
     		this.email = email;
     	}
-    	else if((email.endsWith(".com")== false) && (email.endsWith(".com.br")==true)){
-    		this.email = email;
-    	}
-    		else if((email.endsWith("@")== true)){
-    			this.email = email;
-    	
-    	}else{
-    		throw new AtualizaUsuarioException("Erro na atualizacao de perfil. Formato de e-mail esta invalido");
+        else{
+    		throw new AtualizaUsuarioException("Erro na atualizacao de perfil. Formato de e-mail esta invalido.");
     	}
 	}
 	
@@ -194,12 +186,16 @@ public String validaData(String dataNascimento) throws ParseException{
 			data1.parse(dataNascimento);
 			String[] s =dataNascimento.split("/");
 			if ((s[0].length() == 2) && (s[1].length() == 2) && (s[2].length() == 4)){
-				validaDataAtualizacao(dataNascimento);
+				if ((s[0].matches("\\d+")) == true && (s[1].matches("\\d+")) == true && (s[2].matches("\\d+")) == true){
+					validaDataAtualizacao(dataNascimento);
+				}
+				else{
+					throw new DataException("Erro na atualizacao de perfil. Formato de data esta invalida.", 2);
+				}
 			}else{
 				throw new DataException("Erro na atualizacao de perfil. Formato de data esta invalida.", 2);
 			}
 		
-
 		return data2.format(data1.parse(dataNascimento));	
 	}
 

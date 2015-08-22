@@ -206,18 +206,18 @@ public class Controller {
 	    	if (atributo.equals("Nome")){
 	        	usuario.atualizaNome(valor);
 	        }
-	        if (atributo.equals("Email")){
+	        if (atributo.equals("E-mail")){
 	        	usuario.atualizaEmail(valor);
 	        }
-	        if(atributo.equals("Foto")){
+	    	if(atributo.equals("Foto")){
 	        	usuario.atualizaImagem(valor);
 	        }
-	        if(atributo.equals("Data de Nascimento")){
+	    	if(atributo.equals("Data de Nascimento")){
 	        	usuario.atualizaDataNascimento(valor);
 	        }
 	        
 	        
-	        if (atributo.equals("Telefone")){
+	    	if (atributo.equals("Telefone")){
 	        	usuario.atualizaTelefone(valor);
 	        }
 	        	
