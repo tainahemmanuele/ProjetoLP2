@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import Pop.Exceptions.AtualizaUsuarioException;
@@ -179,13 +180,22 @@ public class Controller {
 	    
 	    public void removeUsuario(String email)throws UsuarioException{
 	    	if (status == false){
-	    		for(Usuario usuarioLogado:usuarios){
+	    		/*for(Usuario usuarioLogado:usuarios){
 	    			if(usuarioLogado.getEmail().equals(email)){
 	    				usuario = usuarioLogado;
 	    				usuarios.remove(usuario);
 	    				statusUsuario = true;
 	    			}
-	    		}
+	    		}*/
+             Iterator itr = usuarios.iterator(); 
+             while(itr.hasNext()) {
+                   Usuario usuario = (Usuario) itr.next();
+                   if (usuario.getEmail().equals(email)){
+                	   itr.remove();
+                	   statusUsuario = true;
+                   }
+}
+	    		
 	    		if(statusUsuario == false){
 	    			throw new UsuarioException("Um usuarix com email "+ email +"nao esta cadastradx.");
 	    		}
